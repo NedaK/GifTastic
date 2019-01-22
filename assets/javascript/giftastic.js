@@ -4,28 +4,44 @@ $(document).ready(function(){
 
 
     var animals = ["owl", "cat", "bear", "hedgehog", "dog"];
-    
-   
+    //var gif = "";
+    var offset = 0;
 
     function renderButtons(){
         $("#button-wrapper").empty();
-        for (var i = 0; i< animals.length; i++){
-        var $button = $("<button>");
-        $button.addClass("gif-button");
-        $button.attr("name", animals[i]);
-        $button.text(animals[i]);
-        $("#button-wrapper").append($button);
 
-    }
+        for (var i = 0; i< animals.length; i++){
+            var $button = $("<button>");
+            $button.addClass("gif-button");
+            $button.attr("name", animals[i]);
+            $button.text(animals[i]);
+            $("#button-wrapper").append($button);
+
+        }
     }
         
+    function setGif(){
+        gif = $(this).attr("name");
+        //gif = "skunk";
+        console.log(gif);
+        //return gif;
+        offset = 0;
+        displayGifImg();
+    }
 
     function displayGifImg(){
-        
-        var gif = $(this).attr("name");
+    
+    
+        //var gif = $(this).attr("name");
+    
+        //var offset = 0;
         console.log(gif);
-        var queryUrl = "https://api.giphy.com/v1/gifs/search?api_key=uctcZpCXFUZgjrYike9UZEXV7A6u4Otj&q=" + gif + "&limit=10&offset=0";
+        console.log("Offset: " + offset);
 
+        
+
+       
+        var queryUrl = "https://api.giphy.com/v1/gifs/search?api_key=uctcZpCXFUZgjrYike9UZEXV7A6u4Otj&q=" + gif + "&limit=10&offset=" + offset;
 
         $.ajax({
             url: queryUrl,
@@ -46,14 +62,17 @@ $(document).ready(function(){
                 $foundGifs.attr("src", response.data[i].images.downsized_still.url);
 
                 var $gifRating = $("<div class='img-rating'>");
-                $gifRating.text(response.data[i].rating);
+                $gifRating.text("Rating: " + response.data[i].rating);
 
                 $imgContainer.append($foundGifs, $gifRating);
                 $("#gif-display").append($imgContainer);
             }
 
+            $("#gif-to-offset").text(gif+ " ");
+
             //this click event wont work unless it is inside this displayGifImg function.
             //how do i fix it so I can write it as the animate function outside of the displayGifImg function?
+
             $( ".gif-imgs" ).on( "click", function(){
                 var animatedUrl = $(this).attr("gif");
                 var stillUrl = $(this).attr("still");
@@ -68,10 +87,11 @@ $(document).ready(function(){
                
             }); 
             //////////////////////////////////////////////
+
         });
+       
     }
 
-    //$( ".gif-button" ).on( "click", displayGifImg);
 
     //this function not used......
     function animate(){
@@ -95,7 +115,15 @@ $(document).ready(function(){
         }
         
         
-    })
+    });
+
+    $("#change-offset").on("click", function(){
+        //$("#gif-to-offset").text(gif);
+        offset += 10;
+        displayGifImg();
+    });
+
+   
 
     //$( ".gif-imgs" ).on( "click", animate);
 
@@ -105,7 +133,8 @@ $(document).ready(function(){
     
 
     //look into what this line specifically does....code did not work without it once search was implemented....
-    $(document).on("click", ".gif-button", displayGifImg);
+    $(document).on("click", ".gif-button", setGif);
+    //$(document).on("click", ".gif-button", displayGifImg);
 
     renderButtons();
     // displayGifImg();
