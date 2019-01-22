@@ -4,10 +4,8 @@ $(document).ready(function(){
 
 
     var animals = ["owl", "cat", "bear", "hedgehog", "dog"];
-    var isAnimated = false;
-    // var apiKey = "uctcZpCXFUZgjrYike9UZEXV7A6u4Otj";
-    // var url = "https://api.giphy.com/v1/gifs/search?api_key=uctcZpCXFUZgjrYike9UZEXV7A6u4Otj&q=" + skunk + "&limit=10&offset=0";
-
+    
+   
 
     function renderButtons(){
         $("#button-wrapper").empty();
@@ -20,16 +18,6 @@ $(document).ready(function(){
 
     }
     }
-    //renderButtons();
-
-    //$( "gif-button" ).on( "click", displayGifImg);
-    // function notify() {
-    //   alert( "clicked" );
-    // }
-
-    //  $(".gif-button").on("click", function(){
-    //      console.log("clicked");
-    //  });
         
 
     function displayGifImg(){
@@ -70,19 +58,14 @@ $(document).ready(function(){
                 var animatedUrl = $(this).attr("gif");
                 var stillUrl = $(this).attr("still");
                 
-                if (!isAnimated){
-                    isAnimated = true;
+                if($(this).attr("src")===stillUrl){
                     $(this).attr("src", animatedUrl);
-                    //var imgToGif = $(this).attr("gif");
-                    //$(this).attr("src", imgToGif);
-                    
                 }
                 else{
-                    isAnimated = false;
                     $(this).attr("src", stillUrl);
-                    // var imgToGif = $(this).attr("still");
-                    // $(this).attr("src", imgToGif);
-                } 
+                }
+
+               
             }); 
             //////////////////////////////////////////////
         });
@@ -90,6 +73,7 @@ $(document).ready(function(){
 
     //$( ".gif-button" ).on( "click", displayGifImg);
 
+    //this function not used......
     function animate(){
         var imgToGif = $(this).attr("gif");
         console.log(imgToGif);
@@ -118,18 +102,7 @@ $(document).ready(function(){
     // renderButtons();
     //displayGifImg();
 
-    // $(".gif-imgs").on("click", function(){
-    //     var imgToGif = $(this).attr("index");
-    //     console.log(imgToGif);
-    //     console.log("boooo");
-        // $.ajax({
-        //     url: "https://api.giphy.com/v1/gifs/search?api_key=uctcZpCXFUZgjrYike9UZEXV7A6u4Otj&q=skunk&limit=10&offset=0",
-        //     method: "GET"
-        // }).then(function(response){
-        //     console.log(response);
-            
-        // })
-    // });
+    
 
     //look into what this line specifically does....code did not work without it once search was implemented....
     $(document).on("click", ".gif-button", displayGifImg);
