@@ -20,7 +20,7 @@ $(document).ready(function(){
         }
     }
         
-    function setGif(){
+    function setGifName(){
         gif = $(this).attr("name");
         //gif = "skunk";
         console.log(gif);
@@ -133,7 +133,7 @@ $(document).ready(function(){
     
 
     //look into what this line specifically does....code did not work without it once search was implemented....
-    $(document).on("click", ".gif-button", setGif);
+    $(document).on("click", ".gif-button", setGifName);
     //$(document).on("click", ".gif-button", displayGifImg);
 
     renderButtons();
